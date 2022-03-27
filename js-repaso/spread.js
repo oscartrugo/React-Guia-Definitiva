@@ -10,4 +10,24 @@ fn(...arr)
 const arr2 = [...arr, 2, 3] //concatenamos ambos arreglos con spread operator (...)
 const arr3 = arr
 arr[0] = 'chanchito feliz'
-console.log(arr, arr2, arr3)
+//console.log(arr, arr2, arr3)
+
+const obj1 = { a: 1, b: 2 }
+const obj2 = { b: 5, c: 'chanchito feliz' }
+
+const obj3 = {...obj1} //Excelente practica generar copias de los objetos
+obj1.a = 10
+//console.log(obj3)
+
+const obj4 = {...obj1, ...obj2} //va de izquierda a derecha, por lo que se reemplazan valores de las propiedades repetidas
+console.log(obj4)
+const obj5 = {
+    ...obj1,
+    loading: true,
+    data: {
+        prop: 'lala',
+        animal: 'perrito'
+    }
+}
+
+console.log(obj5)
