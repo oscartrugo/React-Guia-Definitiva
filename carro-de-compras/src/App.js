@@ -1,6 +1,5 @@
 import { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Productos from './components/Productos'
 
 class App extends Component{
   state = { //Declaramos el estado
@@ -14,7 +13,10 @@ class App extends Component{
   render(){
     return(
       <div>
-        <p>Hola mundo</p>
+        <Productos
+        agregarAlCarro={() =>  console.log("No hace nada")} //Le pasamos una función al componente
+        productos={this.state.productos} //Le pasamos todos los productos que queremos imprimir
+        />
       </div>
     )
   }
