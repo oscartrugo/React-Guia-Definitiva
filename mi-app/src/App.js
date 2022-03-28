@@ -14,6 +14,10 @@ class Button extends Component{
   componentDidUpdate(prevProps, prevState){ //Recibe props anteriores y state anterior
     console.log("componentDidUpdate", prevProps, prevState)
   }
+
+  componentWillUnmount(){ //Se ejecuta cuando el componente vaya a ser desmontado
+    console.log("desmontando componente", this.props, this.state) //Indica ne qué estado y props estaba al desmontar
+  }
   
   render(){ //Método obligatorio, todos los componentes deben llevar su render
     console.log("Ejecutando método render de button")
@@ -34,7 +38,9 @@ class App extends Component{ //Poviene de Component
     return(
       <div>
         <p>Hola mundo</p>
-        <Button chanchito='feliz'/> {/**Llama a su método render y lo ejecuta sea que sus props hayan cambiado o no */}
+        {this.state.valor === 3
+        ? <Button chanchito='feliz'/>
+        : null} {/**Renderizado condicional */} {/** Si el valor actual es 3, muestra Button. Si no, se desmonta */}
         <button className={`${this.state.valor}`} onClick={() => this.setState({ valor: 2})}> {/**cambiamos el state con setState y se ejecuta el método render */}
           Enviar en App
         </button>
