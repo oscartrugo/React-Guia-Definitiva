@@ -19,7 +19,16 @@ class App extends Component{
     apellido: ''
   }
 
-  updateValues = (prop, value) => {
+  // constructor(props){
+  //   super(props)
+  //   this.updateNombre = this.updateNombre.bind(this) //Solucion a ahorrarnos el problema de this
+  // }
+
+  updateNombre = (v) =>{
+    console.log(this)
+    this.updateValues('nombre', v.target.value)
+  }
+  updateValues(prop, value){
     this.setState({[prop]: value})
   }
 
@@ -29,7 +38,8 @@ class App extends Component{
         Nombre completo: {`${this.state.nombre} ${this.state.apellido}`}
         <Input 
         value={this.state.nombre} //Obtenemos los valores del componente Input
-        onChange={e=>this.updateValues('nombre', e.target.value)}
+        //onChange={(arg)=>this.updateNombre(arg)}
+        onChange={this.updateNombre}
         />
         <Input 
         value={this.state.apellido}
