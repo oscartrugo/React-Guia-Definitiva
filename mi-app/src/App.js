@@ -10,11 +10,15 @@ class Button extends Component{
   componentDidMount(){ //Este método se utiliza para poder actualizar el estado de nuestro componente
     console.log("componentDidMount") //Este método es lo último que se ejecuta
   }
+
+  componentDidUpdate(prevProps, prevState){ //Recibe props anteriores y state anterior
+    console.log("componentDidUpdate", prevProps, prevState)
+  }
   
   render(){ //Método obligatorio, todos los componentes deben llevar su render
     console.log("Ejecutando método render de button")
     return(
-      <button>
+      <button onClick={() => this.setState({prop: 1})}>
         Enviar
       </button>
     )
