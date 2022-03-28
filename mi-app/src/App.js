@@ -1,5 +1,16 @@
 import { Component } from "react"
 
+class Button extends Component{
+  render(){ //Método obligatorio, todos los componentes deben llevar su render
+    console.log("Ejecutando método render de button")
+    return(
+      <button>
+        Enviar
+      </button>
+    )
+  }
+}
+
 class App extends Component{ //Poviene de Component
   state = {//Definimos el estado del componente
     valor: 3 //Definimos una propiedad de estado
@@ -9,8 +20,9 @@ class App extends Component{ //Poviene de Component
     return(
       <div>
         <p>Hola mundo</p>
+        <Button/> {/**Llama a su método render y lo ejecuta sea que sus props hayan cambiado o no */}
         <button className={`${this.state.valor}`} onClick={() => this.setState({ valor: 2})}> {/**cambiamos el state con setState y se ejecuta el método render */}
-          Enviar
+          Enviar en App
         </button>
       </div>
     )
