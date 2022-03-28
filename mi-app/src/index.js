@@ -11,8 +11,26 @@ import reportWebVitals from './reportWebVitals';
 //   document.getElementById('root')
 // );
 
-const X = () => <p>Hola mundo </p> //COMPONENTE FUNCIONAL = ES UNA FUNCIÓN
+//const X = () => <p>Hola mundo </p> //COMPONENTE FUNCIONAL = ES UNA FUNCIÓN
 // <p>Hola mundo </p>
+
+const Li = ({children, estado, casa, edad}) =>{ 
+  console.log(casa, edad);
+  return (
+    <li>{children} estoy {estado}</li>
+  )
+}
+
+const X = () =>
+<ul>
+  <Li 
+    estado={"feliz"}
+    casa={false}
+    edad={24}
+  >Chanchito</Li>
+  <Li estado={'triste'}>Chanchito</Li>
+  <Li estado={'emocionado'}>Felipe</Li>
+</ul>
 
 ReactDOM.render( //ReacDOM.render ES EL ENCARGADO DE RENDERIZAR LA APP
  <X/>, document.getElementById('root') //qué queremos renderizar, dónde queremos renderizarlo
