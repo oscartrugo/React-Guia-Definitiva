@@ -8,6 +8,16 @@ const useContador = (inicial) => { //Definimos un Hook customizado
 
   return [contador, incrementar]
 }
+
+const Interval = ({contador}) => {
+  useEffect(() => {
+    const i = setInterval(() => console.log(contador), 1000)
+    return () => clearInterval(i) //Cada que se ejecute el componente, desuscribimos el intervalor
+  }, [contador])
+  return (
+    <p>Intervalo</p>
+  )
+}
 const App = () => { // [elemento, funcion]
   const [contador, incrementar] = useContador(0) //useState recibe el valor inicial de nuestro contador
   useEffect(() => {
@@ -17,6 +27,7 @@ const App = () => { // [elemento, funcion]
     <div>
       Contador: {contador}
       <button onClick={incrementar}>Incrementar</button>
+      <Interval contador={contador}/>
     </div>
   )
 }
