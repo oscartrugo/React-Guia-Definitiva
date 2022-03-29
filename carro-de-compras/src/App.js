@@ -18,10 +18,21 @@ class App extends Component {
   }
 
   agregarAlCarro = (producto) =>{ //Agregamos productos al carro
+    const {carro} = this.state //Traemos al carro de compras, lo sacamos de this.state
+    if(carro.find(x => x.name === producto.name)){//Preguntamos si el elemento agregado contiene el mismo nombre que el producto
+      const newCarro = carro.map(x => x.name === producto.name //Definimos un nuevo carro de compras en base al existente
+        ? ({ //Si el producto que estamos iterando es el mismo, creamos un objeto literal
+          ...x, //Copiamos el elemento que estamos iterando
+          cantidad: x.cantidad + 1 //Aumentamos + 1 la cantidad
+        })
+        : x) //En el caso de que no, devolvemos el mismo elemento 
+        return this.setState({carro: newCarro})
+
+    } 
     return this.setState({
       carro: this.state.carro.concat({
         ...producto,
-        cantidD: 1,
+        cantidad: 1,
       }) //Toma el arreglo y lo concatena con un nuevo elemento
 
     })
