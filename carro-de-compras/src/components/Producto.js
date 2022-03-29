@@ -16,7 +16,7 @@ const styles = {
 
 class Producto extends Component{
     render(){
-        console.log(this.props) //Imprimimos las propiedades para verificar que estén llegando
+        //console.log(this.props) //Imprimimos las propiedades para verificar que estén llegando
         const {producto, agregarAlCarro} = this.props //Pasamos las props al objeto "producto" haciendo destructuring
         return (
             <div style={styles.producto}>

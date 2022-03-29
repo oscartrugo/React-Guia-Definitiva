@@ -19,7 +19,6 @@ class Layout extends Component{
             <div style={styles.layout}>
                 <div style={styles.container}>
                     {this.props.children} {/**Se imprimen los productos dentro del layout */}
-                    lala
                 </div>
             </div>
         )
