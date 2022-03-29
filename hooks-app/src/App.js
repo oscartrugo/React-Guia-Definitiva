@@ -1,24 +1,29 @@
-const impura = () => new Date().toLocaleString()
-console.log(impura())
-//Función pura NUNCA cambia su valor de retorno
-const MiComponente = ({miProp}) => {
+import { useState } from "react" 
+const App = () => { // [elemento, funcion]
+  const [contador, setContador] = useState(0) //useState recibe el valor inicial de nuestro contador
   return(
     <div>
-      Nombre: {miProp}
+      Contador: {contador}
+      <button onClick={() => setContador(contador + 1)}>Incrementar</button>
     </div>
   )
 }
 
-const App = () =>{
-  return(
-    <MiComponente miProp={'Chanchito feliz'}/>
-  )
-}
+export default App
 
-export default App;
-
-//Un componente funcional es una const a la cual le asignamos una fat arrow function
-//Todos los componentes funcionales son funciones puras
-//Cada vez que llamemos a una funcion impura nos retorna valores distintos, no el mismo
-//Otro ejemplo de funciones impuras son los llamados a la API o a una base de datos.
-
+/**
+ * 
+ * NO PODEMOS LLAMAR A LOS HOOKS EN COMPONENTES DE CLASES
+ * 
+ * REGLAS DE LOS HOOKS
+ * 
+ * 1. Los hooks no se llaman en loops (while, for, if).
+ * Necesariamente debe ser al comieno del componente, en el nivel más alto de la función.
+ * NO PUEDE estar dentro de nada, debe estar en el nivel más alto.
+ * 
+ * 2. Sólo se llaman en 2 partes:
+ *    -Componentes de React.
+ *    -custom hooks
+ * 
+ * 3. Cuando creemos un custom hook, este siempre tiene que comenzar con el nombre use*
+ */
