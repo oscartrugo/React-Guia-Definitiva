@@ -1,13 +1,29 @@
-import { useState } from "react" 
-const App = () => { // [elemento, funcion]
-  const [contador, setContador] = useState(0) //useState recibe el valor inicial de nuestro contador
-  return(
-    <div>
-      Contador: {contador}
-      <button onClick={() => setContador(contador + 1)}>Incrementar</button>
+import { Component, useState } from "react" 
+
+class App extends Component{
+  state = {contador: 0}
+  incrementar = () =>{
+    this.setState({contador: this.state.contador + 1})
+  }
+  render(){
+    return(
+      <div>
+      Contador: {this.state.contador}
+      <button onClick={this.incrementar}>Incrementar</button>
     </div>
-  )
+    )
+  }
 }
+
+// const App = () => { // [elemento, funcion]
+//   const [contador, setContador] = useState(0) //useState recibe el valor inicial de nuestro contador
+//   return(
+//     <div>
+//       Contador: {contador}
+//       <button onClick={() => setContador(contador + 1)}>Incrementar</button>
+//     </div>
+//   )
+// }
 
 export default App
 
