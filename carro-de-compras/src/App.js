@@ -2,6 +2,7 @@ import { Component } from 'react';
 import Productos from './components/Productos'
 import Layout from './components/Layout'
 import Title from './components/Title'
+import Navbar from './components/Navbar'
 
 class App extends Component {
   state = { //Declaramos el estado
@@ -15,7 +16,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Layout>
+        <Navbar/>
+        <Layout> {/**Envuelve a los componentes Title y Productos */}
           <Title/>
           <Productos
             agregarAlCarro={() => console.log("No hace nada")} //Le pasamos una función al componente
