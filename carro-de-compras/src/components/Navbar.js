@@ -17,10 +17,11 @@ const styles = {
 
 class Navbar extends Component{
     render(){
+        const {carro} = this.props //Sacamos nuestro carro de las props
         return(
             <nav style={styles.navbar}>
                 <Logo/>
-                <Carro/>
+                <Carro carro={carro}/> {/**Le pasamos nuestro carro al componente Carro */}
             </nav>
         )
     }

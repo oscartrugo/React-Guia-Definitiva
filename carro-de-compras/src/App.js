@@ -12,9 +12,7 @@ class App extends Component {
       { name: "Lechuga", price: 500, img: '/productos/lechuga.jpg' }
 
     ],
-    carro: [
-      // { name: "Lechuga", price: 500, img: '/productos/lechuga.jpg', cantidad: 1}
-    ]
+    carro: []
   }
 
   agregarAlCarro = (producto) =>{ //Agregamos productos al carro
@@ -39,10 +37,9 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.carro)
     return (
       <div>
-        <Navbar/>
+        <Navbar carro={this.state.carro}/> {/**Le pasamos nuestro carro al navbar */}
         <Layout> {/**Envuelve a los componentes Title y Productos */}
           <Title/>
           <Productos
