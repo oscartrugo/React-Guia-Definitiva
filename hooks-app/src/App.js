@@ -1,29 +1,36 @@
-import { Component, useState } from "react" 
+import { useState } from "react" 
 
-class App extends Component{
-  state = {contador: 0}
-  incrementar = () =>{
-    this.setState({contador: this.state.contador + 1})
-  }
-  render(){
-    return(
-      <div>
-      Contador: {this.state.contador}
-      <button onClick={this.incrementar}>Incrementar</button>
-    </div>
-    )
-  }
-}
-
-// const App = () => { // [elemento, funcion]
-//   const [contador, setContador] = useState(0) //useState recibe el valor inicial de nuestro contador
-//   return(
-//     <div>
-//       Contador: {contador}
-//       <button onClick={() => setContador(contador + 1)}>Incrementar</button>
+// class App extends Component{
+//   state = {contador: 0}
+//   incrementar = () =>{
+//     this.setState({contador: this.state.contador + 1})
+//   }
+//   render(){
+//     return(
+//       <div>
+//       Contador: {this.state.contador}
+//       <button onClick={this.incrementar}>Incrementar</button>
 //     </div>
-//   )
+//     )
+//   }
 // }
+const useContador = (inicial) => { //Definimos un Hook customizado 
+  const [contador, setContador] = useState(inicial) //useState recibe el valor inicial de nuestro contador
+  const incrementar = () => {
+    setContador(contador + 1)
+  }
+
+  return [contador, incrementar]
+}
+const App = () => { // [elemento, funcion]
+  const [contador, incrementar] = useContador(0) //useState recibe el valor inicial de nuestro contador
+  return(
+    <div>
+      Contador: {contador}
+      <button onClick={incrementar}>Incrementar</button>
+    </div>
+  )
+}
 
 export default App
 
