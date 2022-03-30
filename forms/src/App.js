@@ -1,11 +1,13 @@
 import { useState } from "react"
 
 const App = () => {
-    const [value, setValue] = useState({normal: 'Por defecto', texto: 'Valor inicial', select: ''}) //...Actualizamos este objeto
-    const handleChange = (e) =>{
+    const [value, setValue] = useState({normal: 'Por defecto', texto: 'Valor inicial', select: '', check: false}) //...Actualizamos este objeto
+    const handleChange = ({target}) =>{
         setValue((state) => ({
             ...state,
-            [e.target.name]: e.target.value
+            [target.name]: target.type === 'checkbox' 
+                ? target.checked 
+                : target.value
         }))
         // setValue({
         //     ...value, //Generamos una copia de todo el valor
@@ -25,6 +27,13 @@ const App = () => {
                 <option value='chanchitotriste'>Chanchito triste</option>
                 <option value='felipe'>Felipe</option>
             </select>
+
+            <input
+                type='checkbox'
+                name='check'
+                onChange={handleChange}
+                checked={value.check}
+            />
         </div>
     )
 }
