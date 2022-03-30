@@ -14,6 +14,7 @@ function App() {
       </div>
 
       <input name="campo-2"/>
+      <input type='file' name='campo-2' /> {/**Inputs tipo file son solo lectura, por lo que siempre debemos usar un ref */}
       <input type='submit' value='Enviar' />
       <input/>
     </form>
