@@ -7,9 +7,14 @@ const useFormulario = (inicial)=>{
         ...formulario, //Le pasamos el formulario existente
         [e.target.name]: e.target.value
       })
+
     }
 
-    return [formulario, handleChange]
+    const reset = () => {
+      setFormulario(inicial) //Seteamos el formulario con el valor inicial, el objeto que contiene las propiedades vacías
+    }
+
+    return [formulario, handleChange, reset] //Exportamos las funciones
 }
 
 export default useFormulario
