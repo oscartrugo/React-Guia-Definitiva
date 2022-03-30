@@ -8,53 +8,58 @@ import Button from './components/Button'
 
 function App() {
   const [usuarios, setUsuarios] = useState([])
-  const [formulario, handleChange, reset] = useFormulario({ 
+  const [formulario, handleChange, reset] = useFormulario({
     name: '', //Valores iniciales
-    lastName: '', 
-    email: '' 
-  }) 
+    lastName: '',
+    email: ''
+  })
 
   const submit = e => {
     e.preventDefault()
     setUsuarios([
-      ...usuarios, 
+      ...usuarios,
       formulario,
     ])
     reset() //Limpiamos los campos del formulario una vez enviados
   }
   console.log(formulario, usuarios)
   return (
-    <Container>
-      <Card>
-        <div style={{ padding: 20 }}>
-          <form onSubmit={submit}>
-            <Input
-              label='Nombre'
-              name='name'
-              value={formulario.name}
-              onChange={handleChange} />
-            <Input
-              label='Apellido'
-              name='lastName'
-              value={formulario.lastName}
-              onChange={handleChange} />
-            <Input
-              label='Correo'
-              name='email'
-              value={formulario.email}
-              onChange={handleChange} />
-            <Button>Enviar</Button>
+    <div style={{marginTop: '15%'}}>
+      <Container>
+        <Card>
+          <div style={{ padding: 20 }}>
+            <form onSubmit={submit}>
+              <Input
+                label='Nombre'
+                name='name'
+                value={formulario.name}
+                onChange={handleChange} 
+                placeholder='Nombre'/>
+              <Input
+                label='Apellido'
+                name='lastName'
+                value={formulario.lastName}
+                onChange={handleChange} 
+                placeholder='Apellido'/>
+              <Input
+                label='Correo'
+                name='email'
+                value={formulario.email}
+                onChange={handleChange} 
+                placeholder='Correo'/>
+              <Button>Enviar</Button>
 
-          </form>
-        </div>
-      </Card>
-      <Card>
-        <ul>
-          {usuarios.map(x => 
-            <li key={x.email}>{`${x.name} ${x.lastName} ${x.email}`}</li>)}
-        </ul>
-      </Card>
-    </Container>
+            </form>
+          </div>
+        </Card>
+        <Card>
+          <ul>
+            {usuarios.map(x =>
+              <li key={x.email}>{`${x.name} ${x.lastName} ${x.email}`}</li>)}
+          </ul>
+        </Card>
+      </Container>
+    </div>
 
   )
 }
