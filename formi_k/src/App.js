@@ -40,27 +40,30 @@ function App() {
         name='name'
         type='text'
         onChange={formik.handleChange} /**Le pasamos al input la propiedad onChange manejado por el objeto formik utilizando la funcion handleChange dentro de formik*/
+        onBlur={formik.handleBlur} //Sirve para verificar si el usuario se encuentra en este input
         value={formik.values.name}
       />
-      {formik.errors.name ? <div>{formik.errors.name}</div> : null}
+      {formik.touched.name && formik.errors.name ? <div>{formik.errors.name}</div> : null}
       <br />
       <label>Apellido</label>
       <input
         name='lastName'
         type='text'
         onChange={formik.handleChange}
+        onBlur={formik.handleBlur} //Sirve para verificar si el usuario se encuentra en este input
         value={formik.values.lastName}
       />
-      {formik.errors.name ? <div>{formik.errors.lastName}</div> : null}
+      {formik.touched.lastName && formik.errors.name ? <div>{formik.errors.lastName}</div> : null}
       <br />
       <label>Email</label>
       <input
         name='email'
         type='email'
         onChange={formik.handleChange}
+        onBlur={formik.handleBlur} //Sirve para verificar si el usuario se encuentra en este input
         value={formik.values.email}
       />
-      {formik.errors.name ? <div>{formik.errors.email}</div> : null}
+      {formik.errors.email ? <div>{formik.errors.email}</div> : null}
       <br />
       <button>Enviar</button>
     </form>
