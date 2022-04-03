@@ -18,6 +18,11 @@ const validate = (values) => {
 
 
   //Validaciones al campo email
+  if (!values.email) {
+    errors.email = 'Required'
+  } else if (values.email.length < 5) {
+    errors.email = 'El email es muy corto'
+  }
 
   return errors
 }
@@ -36,34 +41,18 @@ function App() {
   return (
     <form onSubmit={formik.handleSubmit}> {/**Le pasamos al form la propiedad onSubmit manejada por el objeto formik  */}
       <label>Nombre</label>
-      <input
-        name='name'
-        type='text'
-        onChange={formik.handleChange} /**Le pasamos al input la propiedad onChange manejado por el objeto formik utilizando la funcion handleChange dentro de formik*/
-        onBlur={formik.handleBlur} //Sirve para verificar si el usuario se encuentra en este input
-        value={formik.values.name}
-      />
+      <input type='text' {...formik.getFieldProps('name')}/>  {/** getFieldProps trae todas las propiedades onchange, onblur y value */}
       {formik.touched.name && formik.errors.name ? <div>{formik.errors.name}</div> : null}
       <br />
+
       <label>Apellido</label>
-      <input
-        name='lastName'
-        type='text'
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur} //Sirve para verificar si el usuario se encuentra en este input
-        value={formik.values.lastName}
-      />
+      <input type='text' {...formik.getFieldProps('lastName')}/>
       {formik.touched.lastName && formik.errors.name ? <div>{formik.errors.lastName}</div> : null}
       <br />
+
       <label>Email</label>
-      <input
-        name='email'
-        type='email'
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur} //Sirve para verificar si el usuario se encuentra en este input
-        value={formik.values.email}
-      />
-      {formik.errors.email ? <div>{formik.errors.email}</div> : null}
+      <input type='email' {...formik.getFieldProps('email')}/>
+      {formik.touched.email && formik.errors.email ? <div>{formik.errors.email}</div> : null}
       <br />
       <button>Enviar</button>
     </form>
