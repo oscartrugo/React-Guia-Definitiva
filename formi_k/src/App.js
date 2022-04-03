@@ -1,4 +1,4 @@
-import { Formik } from 'formik' // Importamos el hook useForm desde formik
+import { Formik, Form, Field, ErrorMessage } from 'formik' // Importamos el hook useForm desde formik
 
 const validate = (values) => {
     const errors = {}
@@ -35,26 +35,23 @@ function App() {
             onSubmit={values => console.log(values)}
         >
 
-            {formik => //Definimos formik
-                <form onSubmit={formik.handleSubmit}> {/**Le pasamos al form la propiedad onSubmit manejada por el objeto formik  */}
-                    <label>Nombre</label>
-                    <input type='text' {...formik.getFieldProps('name')} />  {/** La funcion getFieldProps trae todas las propiedades onchange, onblur y value */}
-                    {formik.touched.name && formik.errors.name ? <div>{formik.errors.name}</div> : null}
-                    <br />
+            <Form> {/**Reemplazamos el form por el componente Form de formik  */}
+                <label>Nombre</label>
+                <Field name='name' type='text' />  {/** La funcion getFieldProps trae todas las propiedades onchange, onblur y value */}
+                <ErrorMessage name='name'/> {/**Componente ErrorMessage de formik */}
+                <br />
 
-                    <label>Apellido</label>
-                    <input type='text' {...formik.getFieldProps('lastName')} />
-                    {formik.touched.lastName && formik.errors.name ? <div>{formik.errors.lastName}</div> : null}
-                    <br />
+                <label>Apellido</label>
+                <Field name='lastName' type='text' />
+                <ErrorMessage name='lastName'/>
+                <br />
 
-                    <label>Email</label>
-                    <input type='email' {...formik.getFieldProps('email')} />
-                    {formik.touched.email && formik.errors.email ? <div>{formik.errors.email}</div> : null}
-                    <br />
-                    <button>Enviar</button>
-                </form>
-
-            }
+                <label>Email</label>
+                <Field name='email' type='email' />
+                <ErrorMessage name='email'/>
+                <br />
+                <button>Enviar</button>
+            </Form>
 
         </Formik>
     );
