@@ -1,4 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik' // Importamos el hook useForm desde formik
+import TextInput from './components/TextInput'
 
 const validate = (values) => {
     const errors = {}
@@ -36,12 +37,7 @@ function App() {
         >
 
             <Form> {/**Reemplazamos el form por el componente Form de formik  */}
-                <label>Nombre</label>
-                <Field name='name' type='text' className='input'/>  {/** La funcion getFieldProps trae todas las propiedades onchange, onblur y value */}
-                <Field name='select' as='select' className='input'> {/**Atributo 'as' permite renderizar otro tipo de componente */}
-                    <option value='chanchitoFeliz'>Chanchito feliz</option>
-                    <option value='chanchitoTriste'>Chanchito triste</option>
-                </Field> 
+                <TextInput name='name' label='Nombre' />
                 <ErrorMessage name='name'/> {/**Componente ErrorMessage de formik */}
                 <br />
 
