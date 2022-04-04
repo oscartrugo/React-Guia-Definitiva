@@ -1,4 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik' // Importamos el hook useForm desde formik
+import Checkbox from './components/Checkbox'
 import TextInput from './components/TextInput'
 
 const validate = (values) => {
@@ -50,6 +51,9 @@ function App() {
                 <Field name='email' type='email' />
                 <ErrorMessage name='email'/>
                 <br />
+                <Checkbox name='accept'>
+                    Aceptar términos y condiciones.
+                </Checkbox>
                 <button>Enviar</button>
             </Form>
 
