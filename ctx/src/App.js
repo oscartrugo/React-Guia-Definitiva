@@ -1,51 +1,35 @@
-import { createContext, useContext, useState, memo, useCallback } from "react";
+import { Component, createContext } from "react";
 
-const Context = createContext()
+const Context = createContext('mi valor')
 
-const ContadorProvider = ({children}) => {
-    const [contador, setCont] = useState(0)
-
-    const incrementar = () => useCallback(() => setCont(x => x + 1), [])
-    const decrementar = () => useCallback(() => setCont(x => x - 1), [])
-
-    return(
-        <Context.Provider value={{contador, incrementar, decrementar}}>
+const Provider = ({ children }) => {
+    return (
+        <Context.Provider value="otro valor">
             {children}
         </Context.Provider>
     )
 }
 
-const Incrementar = memo(() => {
-    console.log('incrementar')
-    const {incrementar} = useContext(Context)
-    return(
-        <button onClick={incrementar}>Incrementar</button>
-    )
-})
-
-const Decrementar = (() => {
-    console.log('decrementar')
-    const {decrementar} = useContext(Context)
-    return(
-        <button onClick={decrementar}>Decrementar</button>
-    )
-})
-
-const Label = () => {
-    console.log('Label')
-    const {contador} = useContext(Context)
-    return(
-        <h1>{contador}</h1>
-    )
+class Componente extends Component {
+    //static contextType = Context
+    render() {
+        console.log(this.context)
+        return (
+            <div>Hola mundo</div>
+        )
+    }
 }
 
+Componente.contextType = Context
+
 const App = () => {
-    return(
-        <ContadorProvider>
-            <Label/>
-            <Incrementar/>
-            <Decrementar/>
-        </ContadorProvider>
+    return (
+        <Provider>
+            <Componente />
+            <Context.Consumer>
+                {valor => <div>{valor}</div>}
+            </Context.Consumer>
+        </Provider>
     )
 }
 
