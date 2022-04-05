@@ -1,31 +1,12 @@
-import { Route, Routes, Link, useMatch, useParams, NavLink } from 'react-router-dom';
- 
-const Proyecto = () => {
-  const match = useMatch('/portafolio/:proyecto_id');
-  const params = useParams(); //Hook para saber los parámetros
-  const { proyecto_id } = params;
-  return <h2>Proyecto: {proyecto_id}</h2>;
-};
+import { Route, Routes, Link, Navigate } from 'react-router-dom';
  
 const Portafolio = () => {
-  return (
-    <div>
-      <h1>Portafolio</h1>
-      <ul>
-        <li>
-          <NavLink activeClassName="activado" end to="proyecto-1">Proyecto 1</NavLink>
-        </li>
-        <li>
-          <NavLink activeStyle={{ fontSize: 20 }} end to="proyecto-2">Proyecto 2</NavLink>
-        </li>
-      </ul>
-      <section>
-        <Routes>
-          <Route path=":proyecto_id" element={<Proyecto />}></Route>
-        </Routes>
-      </section>
-    </div>
-  );
+  const loggedIn = false;
+ 
+  if (!loggedIn) {
+    return <Navigate to="/" />;
+  }
+  return <h1>Portafolio</h1>;
 };
  
 function App() {
@@ -34,19 +15,26 @@ function App() {
       <nav>
         <ul>
           <li>
-            <NavLink end to="/">Inicio</NavLink> {/** end para el único elemento activo */}
+            <Link to="/">Inicio</Link>
           </li>
           <li>
-            <NavLink isActive={(match, location) => {
-                console.log(match, location)
-            }} end to="/portafolio">Portafolio</NavLink>
+            <Link to="/perfil">Perfil</Link>
+          </li>
+          <li>
+            <Link to="/portafolio">Portafolio</Link>
           </li>
         </ul>
       </nav>
       <section>
         <Routes>
-          <Route exact path="/" element={<h1>Inicio</h1>}></Route>
-          <Route path="portafolio/*" element={<Portafolio />}></Route>
+          <Route exact path="/inicio" element={<h1>Inicio</h1>}></Route>
+          <Route exact path="/perfil" element={<h1>Perfil</h1>}></Route>
+          <Route path="/portafolio" element={<Portafolio />}></Route>
+          <Route
+            exact
+            path="/"
+            element={<Navigate replace to="/inicio" />}
+          ></Route>
         </Routes>
       </section>
     </div>
