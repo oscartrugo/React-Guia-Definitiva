@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react' //useCallback recuerda la funcion
+import { useState, useCallback, useMemo } from 'react' //useCallback recuerda la funcion
 import Title from './components/Title'
 import MyForm from './components/Forms/MyForm'
 import MyList from './components/Lists/MyList'
@@ -11,6 +11,18 @@ function App() {
       values
     ]))
   }, [])
+  const iterador = 5000000
+  console.time('memo')
+  const memoized = useMemo(() => {
+    let total = 0
+    for(let i = 0; i < iterador; i++){
+      total = total * iterador
+    }
+
+    return total
+  }, [iterador])
+
+  console.timeEnd('memo')
 
   return (
     <div>
