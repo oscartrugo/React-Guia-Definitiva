@@ -1,10 +1,9 @@
-import { Route, Routes, Link, useMatch, useParams } from 'react-router-dom';
+import { Route, Routes, Link, useMatch, useParams, NavLink } from 'react-router-dom';
  
 const Proyecto = () => {
   const match = useMatch('/portafolio/:proyecto_id');
   const params = useParams(); //Hook para saber los parámetros
   const { proyecto_id } = params;
-  console.log({ match, params });
   return <h2>Proyecto: {proyecto_id}</h2>;
 };
  
@@ -14,10 +13,10 @@ const Portafolio = () => {
       <h1>Portafolio</h1>
       <ul>
         <li>
-          <Link to="proyecto-1">Proyecto 1</Link>
+          <NavLink activeClassName="activado" end to="proyecto-1">Proyecto 1</NavLink>
         </li>
         <li>
-          <Link to="proyecto-2">Proyecto 2</Link>
+          <NavLink activeStyle={{ fontSize: 20 }} end to="proyecto-2">Proyecto 2</NavLink>
         </li>
       </ul>
       <section>
@@ -35,10 +34,12 @@ function App() {
       <nav>
         <ul>
           <li>
-            <Link to="/">Inicio</Link>
+            <NavLink end to="/">Inicio</NavLink> {/** end para el único elemento activo */}
           </li>
           <li>
-            <Link to="/portafolio">Portafolio</Link>
+            <NavLink isActive={(match, location) => {
+                console.log(match, location)
+            }} end to="/portafolio">Portafolio</NavLink>
           </li>
         </ul>
       </nav>
@@ -53,28 +54,3 @@ function App() {
 }
  
 export default App;
-
-// function App() {
-//     return (
-//         <div>
-//             <nav>
-//                 <ul>
-//                     <li>
-//                         <Link to='/'>Inicio</Link> {/**Captura el efecto de abrir otro link */}
-//                     </li>
-//                     <li>
-//                         <Link to='/portafolio'>Portafolio</Link> {/**Captura el efecto de abrir otro link */}
-//                     </li>
-//                 </ul>
-//             </nav>
-//             <section>
-//                 <Routes>
-//                     <Route path='/' element={<h1>Inicio</h1>} />
-//                     <Route path='/portafolio/*' element={<Portafolio />} />
-//                 </Routes>
-//             </section>
-//         </div>
-//     );
-// }
-
-// export default App;
