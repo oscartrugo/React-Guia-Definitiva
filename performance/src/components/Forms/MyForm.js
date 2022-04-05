@@ -31,4 +31,4 @@ const MyForm = ({ onSubmit }) => {
   )
 }
 
-export default MyForm
+export default memo(MyForm)
