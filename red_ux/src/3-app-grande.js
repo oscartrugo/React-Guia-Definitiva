@@ -1,47 +1,41 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { combineReducers } from 'redux'
 
-const todosReducer = (state = [], action) => {
+const initialState = { //Contiene las entitites
+  todos: [],
+  filter: 'all',
+}
+
+export const reducer = (state = initialState, action) => {
   switch(action.type) {
-    case 'todo/add':
+    case 'todo/add': //Cuando agregamos un todo
       const id = Math.random().toString(36)
-      return state.concat({ id, ...action.payload })
-
+      return {
+        ...state,
+        todos: state.todos.concat({ id, ...action.payload })
+      }
     case 'todo/complete':
-      return state.map(todo => {
+      const newTodos = state.todos.map(todo => {
         if (todo.id === action.payload.id) {
           return { ...todo, completed: !todo.completed }
         }
 
         return todo
       })
-    default:
-      return state
-  }
-}
 
-export const filterReducer = (state = 'all', action) => {
-  switch(action.type) {
+      return {
+        ...state,
+        todos: newTodos,
+      }
     case 'filter/set':
-      return action.payload
+      return {
+        ...state,
+        filter: action.payload,
+      }
     default:
       return state
   }
 }
-
-//export const reducer = (state = initialState, action) => {
-  //return {
-    //todos: todosReducer(state.todos, action),
-    //filter: filterReducer(state.filter, action),
-  //}
-//}
-
-export const reducer = combineReducers({
-  todos: todosReducer,
-  filter: filterReducer,
-})
-
 const selectTodos = state => {
   const { todos, filter } = state
 
