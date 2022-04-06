@@ -1,10 +1,7 @@
 import { useState } from 'react'
-import { createSelector } from 'reselect'
 import { useDispatch, useSelector } from 'react-redux'
 import { combineReducers } from 'redux'
 
-// action creators!!
-// flux standard actions, tiene type, puede tener payload, error y/o meta
 export const asyncMiddleware = store => next => action => {
   if (typeof action === 'function') {
     return action(store.dispatch, store.getState)
@@ -79,21 +76,19 @@ export const reducer = combineReducers({
   filter: filterReducer,
 })
 
-const selectTodos = createSelector(
-  state => state.todos.entities,
-  state => state.todos.filter,
-  (todos, filter) => {
-    if (filter === 'complete') {
-      return todos.filter(todo => todo.completed)
-    }
+const selectTodos = state => {
+  const { todos: { entities: todos }, filter } = state
 
-    if (filter === 'incomplete') {
-      return todos.filter(todo => !todo.completed)
-    }
-
-    return todos
+  if (filter === 'complete') {
+    return todos.filter(todo => todo.completed)
   }
-)
+
+  if (filter === 'incomplete') {
+    return todos.filter(todo => !todo.completed)
+  }
+
+  return todos
+}
 
 const selectStatus = state => state.todos.status
 
@@ -126,7 +121,7 @@ function App() {
     setValue('')
   }
 
-  if (status.loading == 'pending') {
+  if (status.loading === 'pending') {
     return <p>cargando...</p>
   }
 
