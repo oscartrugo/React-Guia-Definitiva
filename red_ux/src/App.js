@@ -1,32 +1,92 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-export const reducer = (state = 0, action) => {
-  console.log(action)
+const initialState = { //Contiene las entitites
+  todos: [],
+  filter: 'all',
+}
+
+export const reducer = (state = initialState, action) => {
   switch(action.type) {
-    case 'incrementar':
-      return state + 1
-    case 'decrementar':
-      return state - 1
-    case 'set':
-      return action.payload
+    case 'todo/add': //Cuando agregamos un todo
+      const id = Math.random().toString(36)
+      return {
+        ...state,
+        todos: state.todos.concat({ id, ...action.payload })
+      }
+    case 'todo/complete':
+      const newTodos = state.todos.map(todo => {
+        if (todo.id === action.payload.id) {
+          return { ...todo, completed: !todo.completed }
+        }
+
+        return todo
+      })
+
+      return {
+        ...state,
+        todos: newTodos,
+      }
+    case 'filter/set':
+      return {
+        ...state,
+        filter: action.payload,
+      }
     default:
       return state
   }
 }
+const selectTodos = state => {
+  const { todos, filter } = state
 
-function App() {
-  const [valor, setValor] = useState('')
+  if (filter === 'complete') {
+    return todos.filter(todo => todo.completed)
+  }
+
+  if (filter === 'incomplete') {
+    return todos.filter(todo => !todo.completed)
+  }
+
+  return todos
+}
+
+const TodoItem = ({ todo }) => {
   const dispatch = useDispatch()
-  const state = useSelector(state => state)
+  return (
+    <li
+      style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
+      key={todo.id}
+      onClick={() => dispatch({ type: 'todo/complete', payload: todo })}
+    >
+      {todo.title}
+    </li>
+  )
+}
+function App() {
+  const [value, setValue] = useState('')
+  const dispatch = useDispatch()
+  const todos = useSelector(selectTodos)
+  const submit = e => {
+    e.preventDefault()
+    if (!value.trim()) {
+      return
+    }
+    const todo = { title: value, completed: false }
+    dispatch({ type: 'todo/add', payload: todo })
+    setValue('')
+  }
 
   return (
     <div>
-      <p>{state}</p>
-      <button onClick={() => dispatch({ type: 'incrementar' })}>Incrementar</button>
-      <button onClick={() => dispatch({ type: 'decrementar' })}>Decrementar</button>
-      <button onClick={() => dispatch({ type: 'set', payload: valor })}>Set</button>
-      <input value={valor} onChange={e => setValor(Number(e.target.value))} />
+      <form onSubmit={submit}>
+        <input value={value} onChange={e => setValue(e.target.value)} />
+      </form>
+      <button onClick={() => dispatch({ type: 'filter/set', payload: 'all' })}>Todos</button>
+      <button onClick={() => dispatch({ type: 'filter/set', payload: 'complete' })}>Completados</button>
+      <button onClick={() => dispatch({ type: 'filter/set', payload: 'incomplete' })}>Incompletos</button>
+      <ul>
+        {todos.map(todo => <TodoItem key={todo.id} todo={todo} />)}
+      </ul>
     </div>
   );
 }
